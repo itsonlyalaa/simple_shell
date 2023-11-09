@@ -15,6 +15,6 @@
 void display_p(void);
 void print_p(const char *text);
 void user_input(char *cmd, size_t size);
-void execute(const char *c);
+void execute(char *c);
 
 #endif

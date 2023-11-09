@@ -12,20 +12,34 @@
  */
 
 
-void execute(const char *cmd)
+void execute(char *c)
 {
 	pid_t child_pid = fork();
 
 	if (child_pid == -1)
 	{
 		perror("fork");
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 	else if (child_pid == 0)
 	{
-			execlp(cmd, cmd, (char*)NULL);
-			perror("execlp");
-			exit(EXIT_FAILURE);
+		char **argv = (char **)malloc(2 * sizeof(char *));
+
+		if (argv == NULL)
+		{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+		}
+			argv[0] = (char *)c;
+			argv[1] = NULL;
+			execve(c, argv, NULL);
+			if (execve(c, argv, NULL) == -1)
+			{
+				perror("execve");
+				exit(EXIT_FAILURE);
+				free(argv); 
+			}
+			free(argv);
 	}
 	else
 	{
