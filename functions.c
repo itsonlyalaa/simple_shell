@@ -7,7 +7,7 @@
 
 void print_p(const char *text)
 {
-	write(STDOUT_FILENO, text, strlen(text));
+	write(1, text, strlen(text));
 }
 
 /**

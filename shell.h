@@ -16,5 +16,7 @@ void display_p(void);
 void print_p(const char *text);
 void user_input(char *cmd, size_t size);
 void execute(char *c);
-
+int _strlen(char *s);
+int _strcmp(char *s1, char *s2);
+char *_strcpy(char *dest, char *src);
 #endif
