@@ -5,7 +5,7 @@
  * @s: string
  *Return: returns lenght;
  */
-int _strlen(char *s)
+int _strlen( char *s)
 {
 int count, inc;
 inc = 0;
@@ -66,3 +66,4 @@ int _strcmp(char *s1, char *s2)
 	return (*s1 - *s2);
 	}
 }
+
