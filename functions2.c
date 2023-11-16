@@ -1,68 +1,34 @@
 #include "shell.h"
 
 /**
- *_strlen - returns the length of a string
- * @s: string
- *Return: returns lenght;
- */
-int _strlen(char *s)
-{
-int count, inc;
-inc = 0;
-for (count = 0; s[count] != '\0'; count++)
-inc++;
-
-return (inc);
-}
-
-/**
- * *_strcpy - copies the string pointed to by src
- * including the terminating null byte (\0)
- * to the buffer pointed to by dest
- * @dest: pointer to the buffer in which we copy the string
- * @src: string to be copied
+ * _strcpy - copies a string from source to destination
+ * @s: string source
+ * @d: string destination
  *
- * Return: the pointer to dest
+ * Return: pointer to d
  */
-char *_strcpy(char *dest, char *src)
+char *_strcpy(char *d, char *s)
 {
-	int len, i;
+int i;
 
-	len = 0;
-
-	while (src[len] != '\0')
-	{
-		len++;
-	}
-
-	for (i = 0; i < len; i++)
-	{
-		dest[i] = src[i];
-	}
-	dest[i] = '\0';
-
-	return (dest);
+for (i = 0; s[i] != '\0'; i++)
+{
+d[i] = s[i];
 }
-
+d[i] = '\0';
+return (d);
+}
 /**
- * _strcmp - compare 2 strings.
- * @s1: string to be compared.
- * @s2: string for comparation.
- * Return: Difference.
+ * _isalpha - checks if the input is a letter
+ * @c: the character to be checked
+ *
+ * Return: 1 if letter, 0 if not
  */
-int _strcmp(char *s1, char *s2)
+int _isalpha(int c)
 {
-	while ((*s1 != '\0' && *s2 != '\0') && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	if (*s1 == *s2)
-	{
-		return (0);
-	}
-	else
-	{
-	return (*s1 - *s2);
-	}
+if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+{
+return (SUCCESS);
+}
+return (FAILURE);
 }
