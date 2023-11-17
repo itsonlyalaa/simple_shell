@@ -1,1 +1,1 @@
-0x16. C - Simple Shell
+a project to create our own shell
