@@ -1,137 +1,82 @@
 #include "shell.h"
-int lsh_cd(char **args);
-int lsh_help(char **args);
-int lsh_exit(char **args);
-int lsh_ctrld(char **args);
+
+int sh_cd(char **args);
+int sh_help(char **args);
+int sh_exit(char **args);
+int sh_ctrld(char **args);
 
 /*
- * List of builtin commands, followed by their corresponding functions.
- */
+* List of builtin commands, followed by their corresponding functions.
+*/
 char *builtin_str[] = {"cd", "help", "exit", "^D"};
 
-int (*builtin_func[]) (char **) = {&lsh_cd, &lsh_help, &lsh_exit, &lsh_ctrld};
+int (*builtin_func[]) (char **) = {&sh_cd, &sh_help, &sh_exit, &sh_ctrld};
 
 /**
- * lsh_num_builtins - size
+ * sh_num_builtins - size
+ *
  * Return: size
  */
 
-int lsh_num_builtins(void)
+int sh_num_builtins(void)
 {
-	return (sizeof(builtin_str) / sizeof(char *));
+return (sizeof(builtin_str) / sizeof(char *));
 }
 
-/*
- * Builtin function implementations.
-*/
-
 /**
- * lsh_cd - builtin to change dirs
- * @args: List of args.  args[0] is "cd".  args[1] is the directory.
+ * sh_cd - builtin to change directory
+ * @args: List of args.
+ *
  * Return: 1 on success
  */
-int lsh_cd(char **args)
+
+int sh_cd(char **args)
 {
-	if (args[1] == NULL)
-	{
-		fprintf(stderr, "hsh: expected argument to \"cd\"\n");
-	}
-	else
-	{
-		if (chdir(args[1]) != 0)
-		{
-			perror("hsh");
-		}
-	}
-	return (1);
+if (args[1] == NULL)
+{
+fprintf(stderr, "hsh: expected argument to \"cd\"\n");
+}
+else
+{
+if (chdir(args[1]) != 0)
+{
+perror("hsh");
+}
+}
+return (1);
 }
 
 /**
- * lsh_help - prints the help for the shell
- * @args: List of args.  Not examined.
+ * sh_help - prints the help for the shell
+ * @args: List of args.
+ *
  * Return: Always returns 1, to continue executing.
  */
-int lsh_help(char **args)
+
+int sh_help(char **args)
 {
-	int i;
+int i;
 
-	printf("Oscar Bedat and Andres Henderson\n");
-	printf("If you need help, call 1-800-help\n");
-	(void)args;
-	for (i = 0; i < lsh_num_builtins(); i++)
-	{
-		printf("  %s\n", builtin_str[i]);
-	}
+printf("Oscar Bedat and Andres Henderson\n");
+printf("If you need help, call 1-800-help\n");
+(void)args;
+for (i = 0; i < sh_num_builtins(); i++)
+{
+printf("  %s\n", builtin_str[i]);
+}
 
-	return (1);
+return (1);
 }
 
 /**
- * lsh_exit - builtin to exit the shell
- * @args: List of args.  Not examined.
+ * sh_exit - builtin to exit the shell
+ * @args: List of args.
+ *
  * Return: Always returns 0, to terminate execution.
  */
-int lsh_exit(char **args)
+int sh_exit(char **args)
 {
-	(void)args;
-	free(args);
-	return (200);
-}
-
-/**
- * lsh_ctrld - builtin to handle "^D" call
- * @args: List of args.  Not examined.
- * Return: Always returns 0, to terminate execution.
- */
-int lsh_ctrld(char **args)
-{
-	(void)args;
-	free(args);
-	return (200);
-}
-
-/**
- *_fork_fun - foo that create a fork.
- *@arg: Command and values path.
- *@av: Has the name of our program.
- *@env: Environment
- *@lineptr: Command line for the user.
- *@np: ID of proces.
- *@c: Checker add new test
- *Return: 0 success
- */
-
-int _fork_fun(char **arg, char **av, char **env, char *lineptr, int np, int c)
-{
-
-	pid_t child;
-	int status, i = 0;
-	char *format = "%s: %d: %s: not found\n";
-
-	if (arg[0] == NULL)
-		return (1);
-	for (i = 0; i < lsh_num_builtins(); i++)
-	{
-		if (_strcmp(arg[0], builtin_str[i]) == 0)
-			return (builtin_func[i](arg));
-	}
-	child = fork();
-	if (child == 0)
-	{
-		if (execve(arg[0], arg, env) == -1)
-		{
-			fprintf(stderr, format, av[0], np, arg[0]);
-			if (!c)
-				free(arg[0]);
-			free(arg);
-			free(lineptr);
-			exit(errno);
-		}
-	}
-	else
-	{
-		wait(&status);
-		return (status);
-	}
-	return (0);
+(void)args;
+free(args);
+return (200);
 }

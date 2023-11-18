@@ -1,9 +1,7 @@
 #include "shell.h"
 
-
 /**
- * _getenv - prts env to standard output
- *
+ * _getenv - prints env to standard output
  * @env: enviroment
  *
  */
